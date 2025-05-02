@@ -1,0 +1,63 @@
+package com.suju.every_thing_with_spring.security.custom_user;
+
+import com.suju.every_thing_with_spring.api.user.User;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+
+@RequiredArgsConstructor
+@Setter
+@Getter
+@Slf4j
+public class CustomUserDetails implements UserDetails {
+    private User user;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        List<SimpleGrantedAuthority> authorities = user.getRoleIds()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
+                .toList();
+
+        log.info("User: {} has roles: {}", user.getEmail(), authorities);
+
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return  user.getUsername() != null ? user.getUsername() : user.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
