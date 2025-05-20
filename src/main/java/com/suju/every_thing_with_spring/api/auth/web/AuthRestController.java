@@ -18,4 +18,10 @@ public class AuthRestController {
         authService.register(registerDto);
         return BaseRest.builder().build();
     }
+
+    @PostMapping("/login")
+    public BaseRest<?> login(@RequestBody LoginDto loginDto){
+        authService.login(loginDto);
+        return BaseRest.builder().build();
+    }
 }
