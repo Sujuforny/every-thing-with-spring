@@ -24,7 +24,7 @@ public class AuthProvider {
         return new SQL() {{
             SELECT("*");
             FROM("users");
-            WHERE("email = #{email}");
+            WHERE("email = #{email} OR username = #{email}");
         }}.toString();
     }
 

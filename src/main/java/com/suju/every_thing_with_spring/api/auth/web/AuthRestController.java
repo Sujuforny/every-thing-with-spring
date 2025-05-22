@@ -3,10 +3,14 @@ package com.suju.every_thing_with_spring.api.auth.web;
 import com.suju.every_thing_with_spring.api.auth.service.AuthService;
 import com.suju.every_thing_with_spring.base.BaseRest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.http.HttpResponse;
+import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +25,13 @@ public class AuthRestController {
 
     @PostMapping("/login")
     public BaseRest<?> login(@RequestBody LoginDto loginDto){
-        authService.login(loginDto);
-        return BaseRest.builder().build();
+        AuthDto authDto = authService.login(loginDto);
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .message("Login successful")
+                .timestamp(LocalDateTime.now())
+                .data(authDto)
+                .build();
     }
 }

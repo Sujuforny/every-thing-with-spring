@@ -23,7 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         log.info("loadUserByUsername : {}",user);
         CustomUserDetails customUserDetails = new CustomUserDetails();
         customUserDetails.setUser(user);
-        log.info("Custom User Details:{}",customUserDetails.getUsername());
         return customUserDetails;
     }
 }
