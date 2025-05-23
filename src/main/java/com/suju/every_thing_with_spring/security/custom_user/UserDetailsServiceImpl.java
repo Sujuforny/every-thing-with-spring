@@ -16,8 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final AuthMapper authMapper;
     @Override
     public UserDetails loadUserByUsername(String username) {
-        log.info("loadUserByUsername");
-
         User user = authMapper.loadUserByUsername(username).orElseThrow(()
         -> new UsernameNotFoundException("User is not valid"));
         log.info("loadUserByUsername : {}",user);

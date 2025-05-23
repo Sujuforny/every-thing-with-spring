@@ -1,6 +1,6 @@
 package com.suju.every_thing_with_spring.api.user.mapstruct;
 
-import com.suju.every_thing_with_spring.api.auth.web.RegisterDto;
+import com.suju.every_thing_with_spring.api.auth.web.dto.RegisterDto;
 import com.suju.every_thing_with_spring.api.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

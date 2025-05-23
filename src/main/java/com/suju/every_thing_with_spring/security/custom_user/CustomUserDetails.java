@@ -26,7 +26,7 @@ public class CustomUserDetails implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
                 .toList();
 
-        log.info("User: {} has roles: {}", user.getEmail(), authorities);
+        log.info("User: {} has roles: {}", user.getUsername() != null ? user.getUsername() : user.getEmail(), authorities);
 
         return authorities;
     }
